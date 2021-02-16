@@ -1,4 +1,5 @@
 import sqlite3
+from components.utils import logger
 
 
 class Database:
@@ -6,20 +7,27 @@ class Database:
     def connection(self):
         #criando a conexão
         self.conn = sqlite3.connect('automacoes.db')
-        print("Criando a conexão com o banco de dados.")
+        logger("Criando a conexão com o banco de dados...")
         return self.conn
 
+    def drop_table(self):
+
+        self.cursor = self.conn.cursor()
+        query_sql_drop_table = '''drop table if exists FRUBANA'''
+        self.cursor.execute(query_sql_drop_table)
+        logger("Tabela deletada com sucesso, para a criação de uma nova.")
+
     def create_table(self):
-        cursor = self.conn.cursor()
-        query_sql = '''CREATE TABLE FRUBANA
+        self.drop_table()
+        query_sql = '''create table if not exists FRUBANA
                          (
                          PRODUCT        TEXT    NOT NULL,
                          PRECO          TEXT,
                          UNIDADE        TEXT,
                          OBSERVACOES    TEXT);
                          '''
-        cursor.execute(query_sql)
-        print("Tabela criada com sucesso!")
+        self.cursor.execute(query_sql)
+        logger("Tabela criada com sucesso!")
 
     def insert_data(self, list_data):
 
@@ -41,7 +49,7 @@ class Database:
 
                 self.conn.commit()
 
-        print("Dados inseridos com sucesso!")
+        logger("Dados inseridos com sucesso!")
 
 
     def close_connection(self):
