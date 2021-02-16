@@ -6,7 +6,12 @@ from components.utils import logger
 
 class CsvFiles:
 
-    def csv_creator(self, list_product):
+    def csv_creator(self, list_product:list) -> None:
+        """
+        It generates a new CSV file named with current's execution date and hour that contains all the 'list_product' data in an organized way._
+        :param list_product: list
+        :return: none
+        """
         current_date = (datetime.now()).strftime("%d_%m_%y")
         current_time = (datetime.now()).strftime("%H_%M")
 

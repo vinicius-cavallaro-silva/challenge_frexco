@@ -11,12 +11,20 @@ class GetProductsFrubana:
         self.driver = webdriver.Chrome()
 
     def load_page(self):
+        """
+        It loads a specific page.
+        :return:none
+        """
         logger('Acessado o site https://br.frubana.com/spo ...')
         self.driver.get("https://br.frubana.com/spo")
         self.driver.find_element_by_xpath('/html/body/div[7]/div/div[1]/div[4]/div[1]/div/div/div/div[1]/div/a').click()
         sleep(2)
 
-    def scroll_page(self):
+    def scroll_page(self) -> list:
+        """
+        It ensures that the page was completely loaded and all the items are accessible.
+        :return: list_products
+        """
         SCROLL_PAUSE_TIME = 2
         logger('Carregando todos os itens...')
         # Get scroll height
@@ -37,7 +45,11 @@ class GetProductsFrubana:
             last_height = new_height
         return list_products
 
-    def get_products(self):
+    def get_products(self) -> list:
+        """
+        This function gets all products main data as product's name, price, measure unit and when it's available, the last price.
+        :return: list_items
+        """
         items = self.driver.find_elements_by_class_name("product-info")
         logger('Obtendo dados...')
 #        return ((item.text).split("\n") for item in items)
@@ -49,5 +61,9 @@ class GetProductsFrubana:
         return self.list_items
 
     def close_page(self):
+        """
+        It just ends the navigation.
+        :return: none
+        """
         logger('Fechando o navegador...')
         self.driver.close()
