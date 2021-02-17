@@ -15,7 +15,7 @@ class GetProductsFrubana:
         It loads a specific page.
         :return:none
         """
-        logger('Acessado o site https://br.frubana.com/spo ...')
+        logger('Acessando o site https://br.frubana.com/spo ...')
         self.driver.get("https://br.frubana.com/spo")
         self.driver.find_element_by_xpath('/html/body/div[7]/div/div[1]/div[4]/div[1]/div/div/div/div[1]/div/a').click()
         sleep(2)
